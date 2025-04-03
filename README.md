@@ -37,8 +37,8 @@ CryptoWeather Nexus is a modern, multi-page dashboard that combines real-time we
 ## Installation & Setup
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/cryptoweather-nexus.git
-   cd cryptoweather-nexus
+   git clone https://github.com/your-username/Digital-Dashboard-App.git
+   cd Digital-Dashboard-App
    ```
 2. **Install dependencies:**
    ```bash
@@ -55,13 +55,6 @@ CryptoWeather Nexus is a modern, multi-page dashboard that combines real-time we
    npm start
    ```
 
-## Deployment
-- The app is deployed on **Vercel/Netlify**.
-- To deploy manually:
-  ```bash
-  vercel deploy
-  ```
-
 ## Challenges & Solutions
 ### API Limitations
 - Some APIs have rate limits, so caching and error handling were implemented to prevent frequent failures.
@@ -74,6 +67,4 @@ CryptoWeather Nexus is a modern, multi-page dashboard that combines real-time we
 ### UI & Responsiveness
 - Tailwind CSS was used to create a seamless UI across different screen sizes.
 
-## Testing (Optional)
-- Unit tests for Redux logic and WebSocket handling can be added using Jest and React Testing Library.
 
