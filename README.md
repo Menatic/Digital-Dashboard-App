@@ -44,7 +44,6 @@ CryptoWeather Nexus is a modern, multi-page dashboard that combines real-time we
    ```bash
    npm install
    ```
-   ```
 3. **Run the development server:**
    ```bash
    npm run dev
