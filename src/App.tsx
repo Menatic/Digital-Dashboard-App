@@ -13,6 +13,7 @@ import WeatherDetailPage from "./pages/WeatherDetailPage";
 import CryptoDetailPage from "./pages/CryptoDetailPage";
 import FavoritesPage from "./pages/FavoritesPage";
 import NotFound from "./pages/NotFound";
+import ErrorBoundary from "./ErrorBoundary";
 
 const queryClient = new QueryClient();
 
@@ -22,17 +23,19 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/weather" element={<WeatherPage />} />
-            <Route path="/weather/:id" element={<WeatherDetailPage />} />
-            <Route path="/crypto" element={<CryptoPage />} />
-            <Route path="/crypto/:id" element={<CryptoDetailPage />} />
-            <Route path="/favorites" element={<FavoritesPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+        <ErrorBoundary>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/weather" element={<WeatherPage />} />
+              <Route path="/weather/:id" element={<WeatherDetailPage />} />
+              <Route path="/crypto" element={<CryptoPage />} />
+              <Route path="/crypto/:id" element={<CryptoDetailPage />} />
+              <Route path="/favorites" element={<FavoritesPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ErrorBoundary>
       </TooltipProvider>
     </QueryClientProvider>
   </Provider>

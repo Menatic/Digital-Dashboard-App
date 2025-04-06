@@ -28,80 +28,42 @@ const initialState: CryptoState = {
   lastUpdated: null,
 };
 
-// Fetch cryptocurrency data
+// List of cryptocurrencies to fetch
+const cryptoIds = ['bitcoin', 'ethereum', 'solana', 'cardano', 'ripple'];
+
+// Fetch cryptocurrency data from CoinGecko API
 export const fetchCryptoData = createAsyncThunk(
   'crypto/fetchCryptoData',
   async (_, { rejectWithValue }) => {
     try {
-      // For demo purposes, let's use mock data instead of actual API calls
-      const mockCryptoData: CryptoData[] = [
-        {
-          id: 'bitcoin',
-          symbol: 'btc',
-          name: 'Bitcoin',
-          price: 63592 + Math.random() * 1000,
-          priceChangePercentage24h: 2.5 * (Math.random() > 0.5 ? 1 : -1),
-          marketCap: 1224000000000,
-          volume24h: 30000000000,
-          circulatingSupply: 19460000,
-          image: 'https://assets.coingecko.com/coins/images/1/large/bitcoin.png',
-          lastUpdated: Date.now(),
-        },
-        {
-          id: 'ethereum',
-          symbol: 'eth',
-          name: 'Ethereum',
-          price: 3053 + Math.random() * 100,
-          priceChangePercentage24h: 1.8 * (Math.random() > 0.5 ? 1 : -1),
-          marketCap: 365000000000,
-          volume24h: 15000000000,
-          circulatingSupply: 120000000,
-          image: 'https://assets.coingecko.com/coins/images/279/large/ethereum.png',
-          lastUpdated: Date.now(),
-        },
-        {
-          id: 'solana',
-          symbol: 'sol',
-          name: 'Solana',
-          price: 144 + Math.random() * 10,
-          priceChangePercentage24h: 3.2 * (Math.random() > 0.5 ? 1 : -1),
-          marketCap: 62000000000,
-          volume24h: 2500000000,
-          circulatingSupply: 430000000,
-          image: 'https://assets.coingecko.com/coins/images/4128/large/solana.png',
-          lastUpdated: Date.now(),
-        },
-        {
-          id: 'cardano',
-          symbol: 'ada',
-          name: 'Cardano',
-          price: 0.45 + Math.random() * 0.05,
-          priceChangePercentage24h: 1.5 * (Math.random() > 0.5 ? 1 : -1),
-          marketCap: 15800000000,
-          volume24h: 500000000,
-          circulatingSupply: 35000000000,
-          image: 'https://assets.coingecko.com/coins/images/975/large/cardano.png',
-          lastUpdated: Date.now(),
-        },
-        {
-          id: 'ripple',
-          symbol: 'xrp',
-          name: 'XRP',
-          price: 0.51 + Math.random() * 0.05,
-          priceChangePercentage24h: 2.0 * (Math.random() > 0.5 ? 1 : -1),
-          marketCap: 25800000000,
-          volume24h: 1200000000,
-          circulatingSupply: 50000000000,
-          image: 'https://assets.coingecko.com/coins/images/44/large/xrp-symbol-white-128.png',
-          lastUpdated: Date.now(),
-        },
-      ];
-
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 500));
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${cryptoIds.join(',')}&order=market_cap_desc&per_page=100&page=1&sparkline=false&price_change_percentage=24h`
+      );
       
-      return mockCryptoData;
+      if (!response.ok) {
+        throw new Error(`Error fetching crypto data: ${response.statusText}`);
+      }
+      
+      const data = await response.json();
+      
+      const cryptoData: CryptoData[] = data.map((coin: any) => ({
+        id: coin.id,
+        symbol: coin.symbol,
+        name: coin.name,
+        price: coin.current_price,
+        priceChangePercentage24h: coin.price_change_percentage_24h,
+        marketCap: coin.market_cap,
+        volume24h: coin.total_volume,
+        circulatingSupply: coin.circulating_supply,
+        image: coin.image,
+        lastUpdated: Date.now(),
+      }));
+      
+      return cryptoData;
     } catch (error) {
+      if (error instanceof Error) {
+        return rejectWithValue(error.message);
+      }
       return rejectWithValue('Failed to fetch cryptocurrency data');
     }
   }

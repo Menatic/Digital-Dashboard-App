@@ -65,6 +65,8 @@ const WeatherDetailPage: React.FC = () => {
             time: time.getTime(),
             temperature: parseFloat(temperature.toFixed(1)),
             humidity: parseFloat(humidity.toFixed(1)),
+            // Make sure to include a valid condition for each data point
+            condition: foundWeather.conditions || 'Clear'
           };
         });
         
@@ -221,17 +223,28 @@ const WeatherDetailPage: React.FC = () => {
 
 // Helper function to get weather icon based on conditions
 function getWeatherIcon(condition: string): string {
+  // Add null check to prevent errors
+  if (!condition) {
+    return 'sun'; // Default icon
+  }
+  
   switch (condition.toLowerCase()) {
-    case 'sunny':
+    case 'clear':
       return 'sun';
-    case 'cloudy':
+    case 'clouds':
       return 'cloud';
-    case 'rainy':
+    case 'rain':
       return 'cloud-rain';
-    case 'partly cloudy':
-      return 'cloud-sun';
+    case 'drizzle':
+      return 'cloud-drizzle';
     case 'thunderstorm':
       return 'cloud-lightning';
+    case 'snow':
+      return 'cloud-snow';
+    case 'mist':
+    case 'fog':
+    case 'haze':
+      return 'cloud-fog';
     default:
       return 'sun';
   }
