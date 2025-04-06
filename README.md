@@ -37,36 +37,23 @@ CryptoWeather Nexus is a modern, multi-page dashboard that combines real-time we
 ## Installation & Setup
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/cryptoweather-nexus.git
-   cd cryptoweather-nexus
+   git clone https://github.com/your-username/Digital-Dashboard-App.git
+   cd Digital-Dashboard-App
    ```
 2. **Install dependencies:**
    ```bash
    npm install
    ```
-3. **Create a `.env.local` file and configure API keys:**
-   ```env
-   NEXT_PUBLIC_WEATHER_API_KEY=your_openweathermap_api_key
-   NEXT_PUBLIC_CRYPTO_API_KEY=your_coingecko_api_key
-   NEXT_PUBLIC_NEWS_API_KEY=your_newsdata_api_key
-   ```
-4. **Run the development server:**
+3. **Run the development server:**
    ```bash
    npm run dev
    ```
    Open [http://localhost:3000](http://localhost:3000) in your browser.
-5. **Build for production:**
+4. **Build for production:**
    ```bash
    npm run build
    npm start
    ```
-
-## Deployment
-- The app is deployed on **Vercel/Netlify**.
-- To deploy manually:
-  ```bash
-  vercel deploy
-  ```
 
 ## Challenges & Solutions
 ### API Limitations
@@ -80,20 +67,4 @@ CryptoWeather Nexus is a modern, multi-page dashboard that combines real-time we
 ### UI & Responsiveness
 - Tailwind CSS was used to create a seamless UI across different screen sizes.
 
-## Testing (Optional)
-- Unit tests for Redux logic and WebSocket handling can be added using Jest and React Testing Library.
-
-## Future Improvements
-- Implement user authentication for personalized settings.
-- Add more interactive charts for data visualization.
-- Improve performance using server-side rendering (SSR) for data-heavy pages.
-
-## Live Demo
-[CryptoWeather Nexus Live](https://yourapp.vercel.app)
-
-## License
-MIT License
-
-## Author
-[Your Name] - [GitHub Profile](https://github.com/your-username/)
 
